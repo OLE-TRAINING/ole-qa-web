@@ -9,12 +9,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import static core.DriverFactory.killDriver;
 public class DSL {
 	
-	/************** Page opening **********************/
+	/************** Page opening/close **********************/
 	public void opemInitPage() {
 		getDriver().get("https://ole-traning.firebaseapp.com/prelogin");
+	}
+	
+	public void closePage() {
+		killDriver();
 	}
 
 	/************** Give title ************************/
@@ -36,7 +40,7 @@ public class DSL {
 	
 	/************** obtain texts **********************/
 	public String giveTextForXpath(String text) {
-		WebElement findElement = giveElementXpath(text, "Visible");
+		WebElement findElement = giveElementXpath(text, "Located");
 		String text2 = findElement.getText();
 		return text2;
 	}
@@ -77,8 +81,8 @@ public class DSL {
 		wait1.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xpath)));
 	}
 	
-	public void waitInSeconds(int n) {
+	public void waitInMiliSeconds(int n) {
 		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(n, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(n, TimeUnit.MILLISECONDS);
 	}
 }

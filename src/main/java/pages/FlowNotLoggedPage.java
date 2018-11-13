@@ -4,10 +4,12 @@ import core.BasePage;
 
 public class FlowNotLoggedPage extends BasePage {
 	// --others
-	public void waitSeconds(int n) {
-		dsl.waitInSeconds(n);
+	public void waitMlSeconds(int n) {
+		dsl.waitInMiliSeconds(n);
 	}
-
+	public void closePage() {
+		dsl.closePage();
+	}
 	// --Prelogin Page -----------------------------------
 	public void waitStandbyLoader() {
 		dsl.expectLoaderDisappear();
