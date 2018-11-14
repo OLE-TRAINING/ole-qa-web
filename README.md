@@ -12,7 +12,7 @@ https://www.google.pt/intl/pt-PT/chrome/?brand=CHBD&gclid=EAIaIQobChMImKDbqP7T3g
   
 2.Download the files in these repository(and extract if necessary). You'll need to see jars.class on the files  
 
-3.Import a new Maven Project to Eclipse IDE  
+3.Import files in new Maven Project to Eclipse IDE  
 
 4.run FlowTestNotLogged.java(in tests) as JUnit test  
   or  
