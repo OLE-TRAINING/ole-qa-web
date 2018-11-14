@@ -1,6 +1,7 @@
 package core;
 
 import static core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.BeforeClass;
 

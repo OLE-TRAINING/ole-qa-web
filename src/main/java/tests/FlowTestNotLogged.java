@@ -1,5 +1,7 @@
 package tests;
 
+
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,8 +20,6 @@ public class FlowTestNotLogged extends BaseTest {
 		page.writeEmail(user.getEmail());
 
 		Assert.assertEquals(user.getEmail(), page.textWritten());
-
-		page.next();
 
 		page.next();
 
@@ -55,7 +55,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.waitStandbyLoader();
 
-		page.waitMlSeconds(500);
+		page.waitMlSeconds(200);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
 

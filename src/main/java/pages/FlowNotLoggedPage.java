@@ -10,6 +10,7 @@ public class FlowNotLoggedPage extends BasePage {
 	public void closePage() {
 		dsl.closePage();
 	}
+	
 	// --Prelogin Page -----------------------------------
 	public void waitStandbyLoader() {
 		dsl.expectLoaderDisappear();

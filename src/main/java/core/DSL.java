@@ -67,6 +67,7 @@ public class DSL {
 		}  else {
 			// else if(waitType.equals("Located"))
 			element1 = wait1.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+			
 		}
 		return element1;
 	}
