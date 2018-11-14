@@ -21,7 +21,7 @@ https://www.google.pt/intl/pt-PT/chrome/?brand=CHBD&gclid=EAIaIQobChMImKDbqP7T3g
    or
    run SuitFlowTests.jave(in suit) as JUnit test
 
-*to run in another browser change in properties(main/core/Properties.java), change:
-public static Browsers browser = Browsers.FIREFOX;
+*to run in another browser change in properties(main/core/Properties.java), change:  
+public static Browsers browser = Browsers.FIREFOX;  
 to
 public static Browsers browser = Browsers.CHROME;
