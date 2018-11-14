@@ -5,6 +5,7 @@ Follow these steps to execute the project:
 
 1.put your browsers in that versions
 Mozilla Firefox version: 63.0
+
 https://www.mozilla.org/en-US/firefox/releases/
 
 google chrome version: current
