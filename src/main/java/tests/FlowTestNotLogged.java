@@ -55,7 +55,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.waitStandbyLoader();
 
-		page.waitMlSeconds(200);
+		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
 
@@ -90,7 +90,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.waitStandbyLoader();
 
-		page.waitMlSeconds(100);
+		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
 
@@ -124,7 +124,7 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 		page.waitStandbyLoader();
 
-		page.waitMlSeconds(100);
+		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
 
@@ -152,7 +152,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.waitStandbyLoader();
 
-		page.waitMlSeconds(100);
+		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
 
@@ -165,6 +165,6 @@ public class FlowTestNotLogged extends BaseTest {
 	}
 
 	public void restart() {
-		page.openTest();
+		page.backInitialScrean();
 	}
 }

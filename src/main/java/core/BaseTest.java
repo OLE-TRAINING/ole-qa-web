@@ -11,10 +11,11 @@ public class BaseTest {
 	
 	@BeforeClass
 	public static void createUser() {
-		//max email lenght = 21
-		user.setEmail(user.newEmail(3));
 		
-		//max Namelenght = 50(16+34)
+		//max email lenght = 50
+		//email lenght >=25
+		user.setEmail(user.newEmail(50));
+		
 		user.setName("Bruno Ferraresi "+user.newName(5));
 		
 		//max user lenght = 15

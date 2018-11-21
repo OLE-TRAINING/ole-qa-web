@@ -14,7 +14,7 @@ public class DSL {
 	
 	/************** Page opening/close **********************/
 	public void opemInitPage() {
-		getDriver().get("https://ole-traning.firebaseapp.com/prelogin");
+		getDriver().get("https://ole-traning.firebaseapp.com");
 	}
 	
 	public void closePage() {
@@ -36,6 +36,7 @@ public class DSL {
 	public void clickInXpath(String xpath) {
 		WebElement findElement = giveElementXpath(xpath, "Clickable");
 		findElement.click();
+		expectLoaderDisappear();
 	}
 	
 	/************** obtain texts **********************/
@@ -81,6 +82,8 @@ public class DSL {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		wait1.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xpath)));
 	}
+	
+
 	
 	public void waitInMiliSeconds(int n) {
 		WebDriver driver = getDriver();

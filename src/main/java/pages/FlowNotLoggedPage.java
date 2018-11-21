@@ -95,7 +95,7 @@ public class FlowNotLoggedPage extends BasePage {
 
 	// --back initial page--------
 	public void backInitialScrean() {
-		dsl.clickInXpath("//div[@class='header-content']/div/i");
+		dsl.clickInXpath("//*[@id=\"root\"]/div/div/div/div[1]/div/span/i");
 	}
 
 	// --Pending Prelogin page -------

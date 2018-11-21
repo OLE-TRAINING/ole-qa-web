@@ -51,16 +51,19 @@ public class User {
 	
 	public String newEmail(int nCaracteres) {
 		Random rand = new Random();
+		
 		char[] letras = "abcdefghijklmnopqrstuvwxy123456789".toCharArray();
 
 		StringBuffer nameBuffer = new StringBuffer();
-
+		
 		char[] bruno = "brunoferraresi".toCharArray();
-
+		
 		for (int i = 0; i < bruno.length; i++) {
 			nameBuffer.append(bruno[i]);
 		}
-
+		
+		nCaracteres-=(bruno.length+11);
+		
 		for (int i = 0; i < nCaracteres; i++) {
 			int ch = rand.nextInt(letras.length);
 			nameBuffer.append(letras[ch]);
@@ -68,7 +71,7 @@ public class User {
 		
 		nameBuffer.append('@');
 		
-		for (int i = 0; i < (nCaracteres/4+4); i++) {
+		for (int i = 0; i < 6; i++) {
 			int ch = rand.nextInt(letras.length);
 			nameBuffer.append(letras[ch]);
 		}

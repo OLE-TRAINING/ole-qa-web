@@ -7,10 +7,12 @@ import org.junit.runners.Suite.SuiteClasses;
 import tests.FlowTestNotLogged;
 
 @RunWith(Suite.class)
-@SuiteClasses({ FlowTestNotLogged.class, 
-				FlowTestNotLogged.class,
-				FlowTestNotLogged.class,
-				FlowTestNotLogged.class,
+@SuiteClasses({
+	FlowTestNotLogged.class, 
+	FlowTestNotLogged.class,
+	FlowTestNotLogged.class, 
+	FlowTestNotLogged.class,
+	FlowTestNotLogged.class,
 	})
 
 public class SuitFlowTests {
