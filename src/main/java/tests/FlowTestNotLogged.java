@@ -13,7 +13,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 	@Test
 	public void flowTestNotLogged() {
-		// --not registred test-------------------
+		// --not registred test------------------
 		page.openTest();
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
 
