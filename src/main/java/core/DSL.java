@@ -2,21 +2,26 @@ package core;
 
 import static core.DriverFactory.getDriver;
 
-
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static core.DriverFactory.killDriver;
+
 public class DSL {
-	
+
 	/************** Page opening/close **********************/
 	public void opemInitPage() {
 		getDriver().get("https://ole-traning.firebaseapp.com");
 	}
-	
+
 	public void closePage() {
 		killDriver();
 	}
@@ -26,19 +31,41 @@ public class DSL {
 		return getDriver().getTitle();
 	}
 
-	/************** interacts with elements ************/
-	public void writeInXpath(String xpath,String text) {
+	/************** interacts with elements/page ************/
+	public void writeInXpath(String xpath, String text) {
 		WebElement findElement = giveElementXpath(xpath, "");
-		
+
 		findElement.sendKeys(text);
 	}
-	
+
 	public void clickInXpath(String xpath) {
 		WebElement findElement = giveElementXpath(xpath, "Clickable");
 		findElement.click();
 		expectLoaderDisappear();
 	}
+
+	public void refresh(int type) {
+		if (type == 1) {
+			getDriver().navigate().refresh();
+		} else if (type == 2) {
+			Robot robot;
+			try {
+				robot = new Robot();
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_F5);
+				robot.keyPress(KeyEvent.KEY_RELEASED);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 	
+	public void goDown() {
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+	}
+
 	/************** obtain texts **********************/
 	public String giveTextForXpath(String text) {
 		WebElement findElement = giveElementXpath(text, "Located");
@@ -46,47 +73,72 @@ public class DSL {
 		return text2;
 	}
 	
-	public String giveTextForAtributeInXpath(String xpath,String atribute) {
+	public String giveTextForXpathNoWait(String text) {
+		return getDriver().findElement(By.xpath(text)).getText();
+	}
+
+	public String giveTextForAtributeInXpath(String xpath, String atribute) {
 		WebElement findElement = giveElementXpath(xpath, "Visible");
 		String text2 = findElement.getAttribute(atribute);
 		return text2;
 	}
-	
-	
+
 	/************** find elements ********************/
-	
+
 	public WebElement giveElementXpath(String xpath, String waitType) {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		WebElement element1;
-		
+
 		expectLoaderDisappear();
-		
+
 		if (waitType.equals("Clickable")) {
 			element1 = wait1.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-		} else if(waitType.equals("Visible")){
+		} else if (waitType.equals("Visible")) {
 			element1 = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-		}  else {
+		} else {
 			// else if(waitType.equals("Located"))
 			element1 = wait1.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-			
+
 		}
 		return element1;
 	}
 	
+	public List<WebElement> cardImgInfos(String xpath) {
+		return getDriver().findElements(By.xpath(xpath));
+	}
+	
+	public WebElement giveElementXpathNoWait(String xpath) {
+		return getDriver().findElement(By.xpath(xpath));
+	}
+
 	/************* waits ********************************/
 	public void expectLoaderDisappear() {
 		expectDisappear("//div[@class='loader-content']");
 	}
-	
+
 	public void expectDisappear(String xpath) {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		wait1.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xpath)));
 	}
 	
-
-	
+	public void expectNotVisible(String xpath) {
+		WebDriver driver = getDriver();
+		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
+		wait1.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(xpath))));
+	}
 	public void waitInMiliSeconds(int n) {
 		WebDriver driver = getDriver();
 		driver.manage().timeouts().implicitlyWait(n, TimeUnit.MILLISECONDS);
 	}
+	
+	public void sleep(int n) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(n);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
 }

@@ -5,14 +5,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.FlowTestNotLogged;
+import tests.HomeTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	FlowTestNotLogged.class, 
 	FlowTestNotLogged.class,
-	FlowTestNotLogged.class, 
-	FlowTestNotLogged.class,
-	FlowTestNotLogged.class,
+	HomeTest.class
 	})
 
 public class SuitFlowTests {

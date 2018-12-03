@@ -2,7 +2,7 @@ package core;
 
 import static core.DriverFactory.killDriver;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 
@@ -26,8 +26,8 @@ public class BaseTest {
 		user.setToken("s4c3ss");	
 	}
 	
-	@After
-	public void ends() {
+	@AfterClass
+	public static void ends() {
 		if (Properties.FECHAR_BROWSER) {
 			killDriver();
 		}

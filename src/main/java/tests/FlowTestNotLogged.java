@@ -18,27 +18,21 @@ public class FlowTestNotLogged extends BaseTest {
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
 
 		page.writeEmail(user.getEmail());
-
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
 		page.next();
 
 		page.waitStandbyLoader();
-
 		Assert.assertEquals("CRIE SUA NOVA CONTA", page.especificTextOfPage());
-
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
 		page.writeCompleteName(user.getName());
-
 		Assert.assertEquals(user.getName(), page.getNameWritten());
 
 		page.writeUser(user.getUser());
-
 		Assert.assertEquals(user.getUser(), page.getUserWritten());
 
 		page.writePassword(user.getPassWord());
-
 		Assert.assertEquals(page.getPasswordWritten(), user.getPassWord());
 
 		page.next();
@@ -58,7 +52,6 @@ public class FlowTestNotLogged extends BaseTest {
 		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
-
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
 		page.writePasswordLogin(user.getPassWord());
@@ -67,13 +60,12 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 
 		// -- pending test
-		restart();
+		page.backInitialScrean();
 
 		page.openTest();
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
 
 		page.writeEmail(user.getEmail());
-
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
 		page.next();
@@ -81,7 +73,6 @@ public class FlowTestNotLogged extends BaseTest {
 		Assert.assertEquals(
 				"IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O CÓDIGO ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
-
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
 		page.writeToken(user.getToken());
@@ -102,13 +93,12 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 
 		// --lost PassWord test
-		restart();
+		page.backInitialScrean();
 
 		page.openTest();
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
 
 		page.writeEmail(user.getEmail());
-
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
 		page.next();
@@ -155,16 +145,11 @@ public class FlowTestNotLogged extends BaseTest {
 		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
 		page.waitMlSeconds(0);
-
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
 		page.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), page.getPasswordWrittenLogin());
 
 		page.next();
-	}
-
-	public void restart() {
-		page.backInitialScrean();
-	}
+	}	
 }

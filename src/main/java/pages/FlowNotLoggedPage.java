@@ -7,10 +7,29 @@ public class FlowNotLoggedPage extends BasePage {
 	public void waitMlSeconds(int n) {
 		dsl.waitInMiliSeconds(n);
 	}
+	
+	public void waitLoader() {
+		dsl.expectNotVisible("//span[@class='loader-card']");
+	}
+	
+	public void sleepSeconds(int n) {
+		dsl.sleep(n);
+	}
 	public void closePage() {
 		dsl.closePage();
 	}
 	
+	public void refresh() {
+		dsl.refresh(1);
+	}
+	
+	public void refreshCtrlF5() {
+		dsl.refresh(2);
+	}
+	
+	public void scrownDown() {
+		dsl.goDown();
+	}
 	// --Prelogin Page -----------------------------------
 	public void waitStandbyLoader() {
 		dsl.expectLoaderDisappear();
@@ -95,7 +114,9 @@ public class FlowNotLoggedPage extends BasePage {
 
 	// --back initial page--------
 	public void backInitialScrean() {
-		dsl.clickInXpath("//*[@id=\"root\"]/div/div/div/div[1]/div/span/i");
+		dsl.clickInXpath("//div[@class='profile-settings-menu']/i");
+		dsl.clickInXpath("//div[@class='profile-settings-menu']/i/following-sibling::div//span[contains(text(), 'Sair')]");
+		dsl.clickInXpath("//button[@class='btn-stay']");
 	}
 
 	// --Pending Prelogin page -------
