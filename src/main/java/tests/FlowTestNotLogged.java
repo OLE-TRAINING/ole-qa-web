@@ -6,16 +6,19 @@ import pages.FlowNotLoggedPage;
 
 public class FlowTestNotLogged extends BaseTest {
 	private FlowNotLoggedPage page = new FlowNotLoggedPage();
-	private String nameError=				  "ObrigatÛrio apenas letras e no m·ximo 50 caracteres.";
-	private String userError= 				  "ObrigatÛrio conter letras e/ou n˙meros, no m·ximo 15 caracteres.";
-	private String userComfirmationError= 	  "Nome de usu·rio pode conter no m·ximo 15 caracteres e apenas letras e n˙meros";
-	private String userInesistentError =	  "Nome de usu·rio inexistente";
-	private String passWordError= 			  "ObrigatÛrio conter letras e n˙meros, entre 6 e 10 caracteres.";
+	private String nameError=				  "Obrigatório apenas letras e no máximo 50 caracteres.";
+	                                           
+	private String userError= 				  "Obrigatório conter letras e/ou números, no máximo 15 caracteres.";
+	
+	private String userComfirmationError= 	  "Nome de usuário pode conter no máximo 15 caracteres e apenas letras e números";
+	private String userInesistentError =	  "Nome de usuário inexistente";
+	private String passWordError= 			  "Obrigatório conter letras e números, entre 6 e 10 caracteres.";
+
 	private String passWordloginPageError =   "Senha incorreta";
-	private String passWordConfirmationError = "Senha deve conter entre 6 e 10 caracteres e apenas letras e n˙meros";
-	private String emailError = 			  "N„o foi possÌvel realizar o cadastro com este email";
-	private String tokenError =            	  "Token de validaÁ„o incorreto";
-	private String tokenIncorrectError =      "Token inv·lido";
+	private String passWordConfirmationError = "Senha deve conter entre 6 e 10 caracteres e apenas letras e números";
+	private String emailError = 			  "Não foi possível realizar o cadastro com este email";
+	private String tokenError =            	  "Token de validação incorreto";
+	private String tokenIncorrectError =      "Token inválido";
 	
 	
 	@Test
@@ -66,7 +69,7 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 
 		page.waitStandbyLoader();
-		Assert.assertEquals("PARA SUA SEGURAN«A, INFORME O TOKEN ENVIADO PARA O SEU E-MAIL:", page.especificTextOfPage());
+		Assert.assertEquals("PARA SUA SEGURANÇA, INFORME O TOKEN ENVIADO PARA O SEU E-MAIL:", page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 		
 		page.writeToken("error");
@@ -111,7 +114,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.next();
 
-		Assert.assertEquals("IDENTIFICAMOS QUE VOC  J¡ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
+		Assert.assertEquals("IDENTIFICAMOS QUE VOC  JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 		
