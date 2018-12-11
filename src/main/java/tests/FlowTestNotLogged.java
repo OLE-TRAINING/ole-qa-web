@@ -1,22 +1,49 @@
 package tests;
-
-
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import core.BaseTest;
 import pages.FlowNotLoggedPage;
 
 public class FlowTestNotLogged extends BaseTest {
 	private FlowNotLoggedPage page = new FlowNotLoggedPage();
-
+	private String nameError=				  "ObrigatÛrio apenas letras e no m·ximo 50 caracteres.";
+	private String userError= 				  "ObrigatÛrio conter letras e/ou n˙meros, no m·ximo 15 caracteres.";
+	private String userComfirmationError= 	  "Nome de usu·rio pode conter no m·ximo 15 caracteres e apenas letras e n˙meros";
+	private String userInesistentError =	  "Nome de usu·rio inexistente";
+	private String passWordError= 			  "ObrigatÛrio conter letras e n˙meros, entre 6 e 10 caracteres.";
+	private String passWordloginPageError =   "Senha incorreta";
+	private String passWordConfirmationError = "Senha deve conter entre 6 e 10 caracteres e apenas letras e n˙meros";
+	private String emailError = 			  "N„o foi possÌvel realizar o cadastro com este email";
+	private String tokenError =            	  "Token de validaÁ„o incorreto";
+	private String tokenIncorrectError =      "Token inv·lido";
+	
+	
 	@Test
 	public void flowTestNotLogged() {
 		// --not registred test------------------
+		
+		//-- wrong email/verify error messages text
 		page.openTest();
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
-
+		page.writeEmail("wrong@-email.com");
+		page.next();
+		Assert.assertEquals("wrong@-email.com", page.getEmailInPage());
+		page.writeCompleteName("!");
+		page.writeUser("!");
+		page.writePassword("!");
+		
+		Assert.assertEquals(nameError, page.getNameErrorMsg());
+		Assert.assertEquals(userError, page.getUserErrorMsg());
+		Assert.assertEquals(passWordError, page.getPassWordErrorMsg());
+		
+		page.clearImputs();
+		page.writeCompleteName(user.getName());
+		page.writeUser(user.getUser());
+		page.writePassword(user.getPassWord());
+		page.next();
+		Assert.assertEquals(emailError, page.getEmailErrorMsg());
+		page.openTest();
+		
 		page.writeEmail(user.getEmail());
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
@@ -34,47 +61,69 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.writePassword(user.getPassWord());
 		Assert.assertEquals(page.getPasswordWritten(), user.getPassWord());
-
-	    page.next();
+		
+		//-- verify wrong token and texts.
+		page.next();
 
 		page.waitStandbyLoader();
-		Assert.assertEquals("PARA SUA SEGURAN�A, INFORME O C�DIGO ENVIADO PARA O SEU E-MAIL:",
-				page.especificTextOfPage());
-
+		Assert.assertEquals("PARA SUA SEGURAN«A, INFORME O TOKEN ENVIADO PARA O SEU E-MAIL:", page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
-
+		
+		page.writeToken("error");
+		page.next();
+		Assert.assertEquals(tokenIncorrectError, page.getTokenError());
+		page.clearImputs();
+		page.writeToken("error0");
+		page.next();
+		Assert.assertEquals(tokenError, page.getTokenError());
+		page.clearImputs();
+		
 		page.writeToken(user.getToken());
 
 		page.next();
 
 		page.waitStandbyLoader();
-
+		
+		//-- verify wrong text initial page
 		page.waitMlSeconds(300);
 		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
-		page.waitMlSeconds(0);
+		page.waitMlSeconds(0);	
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
-
+		
+		page.writePasswordLogin("123456789");
+		page.next();
+		Assert.assertEquals(passWordloginPageError, page.getError());
+		page.clearImputs();
+		
 		page.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), page.getPasswordWrittenLogin());
 
 		page.next();
-
-		// -- pending test
+		
+		// -- pending test/ verify wrong text
 		page.backInitialScrean();
-
+		
 		page.openTest();
 		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
-
+		
 		page.writeEmail(user.getEmail());
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
 		page.next();
-//
-		Assert.assertEquals(
-				"IDENTIFICAMOS QUE VOC� J� INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O C�DIGO ENVIADO PARA SEU E-MAIL:",
+
+		Assert.assertEquals("IDENTIFICAMOS QUE VOC  J¡ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
-
+		
+		page.writeToken("error");
+		page.next();
+		Assert.assertEquals(tokenIncorrectError, page.getTokenError());
+		page.clearImputs();
+		page.writeToken("error0");
+		page.next();
+		Assert.assertEquals(tokenError, page.getTokenError());
+		page.clearImputs();
+		
 		page.writeToken(user.getToken());
 
 		page.next();
@@ -104,11 +153,11 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 
 		Assert.assertEquals(
-				"IDENTIFICAMOS QUE VOC� J� INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O C�DIGO ENVIADO PARA SEU E-MAIL:",
+				"IDENTIFICAMOS QUE VOC  J¡ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
 
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
-
+		
 		page.writeToken(user.getToken());
 
 		page.next();
@@ -125,15 +174,46 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.clickEsqueceuSenha();
 
-		Assert.assertEquals("CONFIRME AS INFORMA��ES DE SUA CONTA", page.especificTextOfPage());
+		Assert.assertEquals("CONFIRME AS INFORMA«’ES DE SUA CONTA", page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
-
+		
+		page.writeConfirmUser("oOoOoOoOoOoO");
+		page.next();
+		Assert.assertEquals(userInesistentError, page.getError());
+		page.clearImputs();
+		page.writeConfirmUser("!+-@#$%5®6®®££777&*9-()()()(AD)(()");
+		page.next();
+		Assert.assertEquals(userComfirmationError, page.getError());
+		page.clearImputs();
+		
 		page.writeConfirmUser(user.getUser());
 
 		page.next();
 
 		Assert.assertEquals("INFORME SUA NOVA SENHA", page.especificTextOfPage());
-
+		
+		//--error token test
+		page.writeToken("error");
+		page.writeNewPassWorld(user.getPassWord());
+		page.writeConfirmPassWorld(user.getPassWord());
+		page.next();
+		Assert.assertEquals(tokenIncorrectError, page.getTokenError());
+		page.clearImputs();
+		page.writeToken("error0");
+		page.writeNewPassWorld(user.getPassWord());
+		page.writeConfirmPassWorld(user.getPassWord());	
+		page.next();
+		Assert.assertEquals(tokenError,  page.getError());
+		page.clearImputs();
+		
+		//-- error password test
+		page.writeToken("error");
+		page.writeNewPassWorld("@@@@@@");
+		page.writeConfirmPassWorld("@@@@@@");
+		page.next();
+		Assert.assertEquals(passWordConfirmationError, page.getError());
+		page.clearImputs();
+		
 		page.writeToken(user.getToken());
 		page.writeNewPassWorld(user.getPassWord());
 		page.writeConfirmPassWorld(user.getPassWord());

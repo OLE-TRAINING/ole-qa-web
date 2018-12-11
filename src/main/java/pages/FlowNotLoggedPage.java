@@ -4,6 +4,10 @@ import core.BasePage;
 
 public class FlowNotLoggedPage extends BasePage {
 	// --others
+	public void openTest() {
+		dsl.opemInitPage();
+	}
+	
 	public void waitMlSeconds(int n) {
 		dsl.waitInMiliSeconds(n);
 	}
@@ -30,13 +34,10 @@ public class FlowNotLoggedPage extends BasePage {
 	public void scrownDown() {
 		dsl.goDown();
 	}
+	
 	// --Prelogin Page -----------------------------------
 	public void waitStandbyLoader() {
 		dsl.expectLoaderDisappear();
-	}
-
-	public void openTest() {
-		dsl.opemInitPage();
 	}
 
 	public String especificTextOfPage() {
@@ -63,29 +64,56 @@ public class FlowNotLoggedPage extends BasePage {
 	}
 
 	public void writeCompleteName(String name) {
-		dsl.writeInXpath("//input[@placeholder='Name']", name);
+		dsl.writeInXpath("//input[@placeholder='Nome']", name);
 	}
 
 	public String getNameWritten() {
-		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Name']", "value");
+		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Nome']", "value");
 	}
 
 	public void writeUser(String name) {
-		dsl.writeInXpath("//input[@placeholder='User']", name);
+		dsl.writeInXpath("//input[@placeholder='Usuário']", name);
 	}
 
 	public String getUserWritten() {
-		return dsl.giveTextForAtributeInXpath("//input[@placeholder='User']", "value");
+		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Usuário']", "value");
 	}
 
 	public void writePassword(String name) {
-		dsl.writeInXpath("//input[@placeholder='Password']", name);
+		dsl.writeInXpath("//input[@placeholder='Senha']", name);
 	}
 
 	public String getPasswordWritten() {
-		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Password']", "value");
+		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Senha']", "value");
 	}
 
+	public String getNameErrorMsg() {
+		return dsl.giveTextForXpath("//div[@class='jss1 form'][1]/font");
+	}
+	
+	public String getUserErrorMsg() {
+		return dsl.giveTextForXpath("//div[@class='jss1 form'][2]/font");
+	}
+	
+	public String getPassWordErrorMsg() {
+		return dsl.giveTextForXpath("//div[@class='jss1 form'][3]/font");
+	}
+	
+	public String getEmailErrorMsg() {
+		return dsl.giveTextForXpath("//font[@class='error-handler']");
+	}
+	
+	public String getTokenError() {
+		return dsl.giveTextForXpath("//font[@class='error-handler']");
+	}
+	
+	public String getError() {
+		return dsl.giveTextForXpath("//*[@id='hideMe']");
+	}
+	
+	public void clearImputs() {
+		dsl.clearTexts("//input");
+	}
 	// --Validate InexistentUser TokenPage -------
 	public void writeToken(String token) {
 		dsl.writeInXpath("//input", token);
@@ -124,7 +152,7 @@ public class FlowNotLoggedPage extends BasePage {
 
 	// --Confirm Information Page ----------
 	public void writeConfirmUser(String name) {
-		dsl.writeInXpath("//input[@placeholder='username']", name);
+		dsl.writeInXpath("//input[@placeholder='Usuário']", name);
 	}
 	
 	//-- NewPassWordPage --------------

@@ -10,8 +10,8 @@ import core.BasePage;
 
 public class HomePage extends BasePage {
 	private List<WebElement> cardImgInfos;
-	private int scrolls = 5;
-
+	private int scrolls = 15;
+	
 	public void setCardImgInfos(String xpath) {
 		cardImgInfos = dsl.cardImgInfos(xpath);
 	}
@@ -62,6 +62,10 @@ public class HomePage extends BasePage {
 	public void writeEmail(String email) {
 		dsl.writeInXpath("//input", email);
 	}
+	
+	public void fatWriteEmail(String email) {
+		dsl.fastWriteInXpath("//input", email);
+	}
 
 	public String textWritten() {
 		return dsl.giveTextForAtributeInXpath("//input", "value");
@@ -69,6 +73,10 @@ public class HomePage extends BasePage {
 
 	public void next() {
 		dsl.clickInXpath("//button");
+	}
+	
+	public void fastNext() {
+		dsl.clickWhithNoLoader("//button");
 	}
 
 	// --New user page------------------------------------
@@ -80,13 +88,20 @@ public class HomePage extends BasePage {
 	public void writeCompleteName(String name) {
 		dsl.writeInXpath("//input[@placeholder='Name']", name);
 	}
-
+	
+	public void fastWriteCompleteName(String name) {
+		dsl.fastWriteInXpath("//input[@placeholder='Name']", name);
+	}
 	public String getNameWritten() {
 		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Name']", "value");
 	}
 
 	public void writeUser(String name) {
 		dsl.writeInXpath("//input[@placeholder='User']", name);
+	}
+	
+	public void fastWriteUser(String name) {
+		dsl.fastWriteInXpath("//input[@placeholder='User']", name);
 	}
 
 	public String getUserWritten() {
@@ -95,6 +110,10 @@ public class HomePage extends BasePage {
 
 	public void writePassword(String name) {
 		dsl.writeInXpath("//input[@placeholder='Password']", name);
+	}
+	
+	public void fastWritePassword(String name) {
+		dsl.fastWriteInXpath("//input[@placeholder='Password']", name);
 	}
 
 	public String getPasswordWritten() {
@@ -130,57 +149,52 @@ public class HomePage extends BasePage {
 	}
 
 	public boolean existErrorInFilmCards() {
+		
+		
 		dsl.expectLoaderDisappear();
 		int index = 1;
 		boolean flag = false;
+		
 
 		// make scrools
 		for (int scroll = 1, countFilm = 0; scroll <= scrolls;) {
 			countFilm = countFilms();
-
 			if (scroll * 20 == countFilm) {
 				scroll++;
 				scrownDown();
 			}
 		}
-
+		
+		
+		
 		// make log of wrong elements
-		String cssValue;
 		String xpath="//div[@class='card-component']/div[@class='card-content']";
-		Boolean noHasImage = false;
+		Boolean hasImage = false;
 		float cssFloatValue;
-		WebElement element;
 
 		for (@SuppressWarnings("unused") WebElement walks : cardImgInfos) {
 			
+		
 			// exclude "px" of string
-			element = dsl.giveElementXpathNoWait(xpath+"["+index+"]");
-			
-			cssValue = element.findElement(By.xpath("//div[@class='card-img-info']")).getCssValue("top").substring(0, (element.getCssValue("top").length() - 1) - 1);
-			
-			cssFloatValue = Float.parseFloat(cssValue);
-			
+			cssFloatValue = dsl.getCssValue(xpath, index);
 			try {
-				noHasImage = element.findElement(By.xpath("//p[contains(text(),'No data avaliable')]")).getText().equals("No data avaliable");
-				System.out.println("getText():" + element.findElement(By.xpath("//p[contains(text(),'No data avaliable')]")).getText());
-			
+				hasImage = dsl.hasImage(xpath, index);
+	
 			} catch (NoSuchElementException exception) {
 				//the element no has tag p
 			}
 		
 			// print log error: correct is 320 if it is less than 85 it will be considered wrong
-			if (cssFloatValue <= 85 || noHasImage) {
+			// error: if no has image
+			if (cssFloatValue <= 85 || hasImage) {
 				System.out.println("");
-				System.out.println("css top:" + cssFloatValue);
-				System.out.println("Image:"+!noHasImage);
-				System.out.println("Movie locator:" + xpath+"["+index+"]"+"//p[@class='card-image']");
+				System.out.println("Image:"+!hasImage);
+				System.out.println("Movie locator:" + xpath+"["+index+"]");
 				System.out.println("/-------------------------------------------------------------------------------/");
 				flag = true;
+		
 			}
-
-			if (noHasImage) {
-				flag = false;
-			}
+			if(hasImage)
 			index++;
 		}
 		return flag;
@@ -188,6 +202,11 @@ public class HomePage extends BasePage {
 
 	public void switchTo(int n) {
 		scrownDown();
+		dsl.clickInXpath("//i");
+		dsl.clickInXpath("//div[@class='dropdown-content']/a[" + n + "]");
+	}
+	
+	public void switchToNoScrow(int n) {
 		dsl.clickInXpath("//i");
 		dsl.clickInXpath("//div[@class='dropdown-content']/a[" + n + "]");
 	}

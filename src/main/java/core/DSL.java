@@ -37,11 +37,19 @@ public class DSL {
 
 		findElement.sendKeys(text);
 	}
+	
+	public void fastWriteInXpath(String xpath, String text) {
+		getDriver().findElement(By.xpath(xpath)).sendKeys(text);
+	}
 
 	public void clickInXpath(String xpath) {
 		WebElement findElement = giveElementXpath(xpath, "Clickable");
 		findElement.click();
 		expectLoaderDisappear();
+	}
+	
+	public void clickWhithNoLoader(String xpath) {
+		getDriver().findElement(By.xpath(xpath)).click();;
 	}
 
 	public void refresh(int type) {
@@ -65,7 +73,25 @@ public class DSL {
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
-
+	
+	public void clearTexts(String xpath) {
+		List<WebElement> findElements = getDriver().findElements(By.xpath(xpath));
+		for(WebElement element:findElements) {
+			element.clear();
+		}	
+	}
+	
+	public float getCssValue (String xpath, int index) {
+		String locator=xpath+"["+index+"]"+"//div[@class='card-img-info']";
+		WebElement element= giveElementXpathNoWait(locator);
+		String css = element.getCssValue("top").substring(0, (element.getCssValue("top").length() - 1) - 1);
+		return Float.parseFloat(css);
+	}
+	
+	public boolean hasImage(String xpath, int index) {
+		String locator = xpath+"["+index+"]"+"//p[contains(text(),'No data avaliable')]";
+		return getDriver().findElement(By.xpath(locator)).getText().equals("No data avaliable");
+	}
 	/************** obtain texts **********************/
 	public String giveTextForXpath(String text) {
 		WebElement findElement = giveElementXpath(text, "Located");
