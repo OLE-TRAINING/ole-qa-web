@@ -35,10 +35,10 @@ public class FlowTestNotLogged extends BaseTest {
 		page.writePassword(user.getPassWord());
 		Assert.assertEquals(page.getPasswordWritten(), user.getPassWord());
 
-		page.next();
+	    page.next();
 
 		page.waitStandbyLoader();
-		Assert.assertEquals("PARA SUA SEGURANÇA, INFORME O CÓDIGO ENVIADO PARA O SEU E-MAIL:",
+		Assert.assertEquals("PARA SUA SEGURANï¿½A, INFORME O Cï¿½DIGO ENVIADO PARA O SEU E-MAIL:",
 				page.especificTextOfPage());
 
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
@@ -69,9 +69,9 @@ public class FlowTestNotLogged extends BaseTest {
 		Assert.assertEquals(user.getEmail(), page.textWritten());
 
 		page.next();
-
+//
 		Assert.assertEquals(
-				"IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O CÓDIGO ENVIADO PARA SEU E-MAIL:",
+				"IDENTIFICAMOS QUE VOCï¿½ Jï¿½ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O Cï¿½DIGO ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
@@ -104,7 +104,7 @@ public class FlowTestNotLogged extends BaseTest {
 		page.next();
 
 		Assert.assertEquals(
-				"IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O CÓDIGO ENVIADO PARA SEU E-MAIL:",
+				"IDENTIFICAMOS QUE VOCï¿½ Jï¿½ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O Cï¿½DIGO ENVIADO PARA SEU E-MAIL:",
 				page.especificTextOfPage());
 
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
@@ -125,7 +125,7 @@ public class FlowTestNotLogged extends BaseTest {
 
 		page.clickEsqueceuSenha();
 
-		Assert.assertEquals("CONFIRME AS INFORMAÇÕES DE SUA CONTA", page.especificTextOfPage());
+		Assert.assertEquals("CONFIRME AS INFORMAï¿½ï¿½ES DE SUA CONTA", page.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
 
 		page.writeConfirmUser(user.getUser());
