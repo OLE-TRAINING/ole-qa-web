@@ -10,7 +10,9 @@ import tests.HomeTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 	FlowTestNotLogged.class,
-	HomeTest.class
+	HomeTest.class,
+	FlowTestNotLogged.class,
+	HomeTest.class,
 	})
 
 public class SuitFlowTests {
