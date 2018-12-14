@@ -7,7 +7,11 @@ public class BasePage {
 		dsl = new DSL();
 	}
 	
-	public void waitStandbyLoader() {
-		dsl.expectLoaderDisappear();
+	public String especificTextOfPage() {
+		return dsl.giveTextForXpath("//div/p[1]");
+	}
+	
+	public String getEmailInPage() {
+		return dsl.giveTextForXpath("//p[2]");
 	}
 }

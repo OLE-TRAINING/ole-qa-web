@@ -3,12 +3,12 @@ package pages;
 import core.BasePage;
 
 public class FlowNotLoggedPage extends BasePage {
-	// --others
+	//(PagesUtils) --others
 	public void openTest() {
 		dsl.opemInitPage();
 	}
 	
-	public void waitMlSeconds(int n) {
+	public void waitMleconds(int n) {
 		dsl.waitInMiliSeconds(n);
 	}
 	
@@ -40,11 +40,6 @@ public class FlowNotLoggedPage extends BasePage {
 		dsl.expectLoaderDisappear();
 	}
 
-	public String especificTextOfPage() {
-		
-		return dsl.giveTextForXpath("//div/p[1]");
-	}
-
 	public void writeEmail(String email) {
 		dsl.writeInXpath("//input", email);
 	}
@@ -58,10 +53,6 @@ public class FlowNotLoggedPage extends BasePage {
 	}
 
 	// --New user page------------------------------------
-
-	public String getEmailInPage() {
-		return dsl.giveTextForXpath("//p[2]");
-	}
 
 	public void writeCompleteName(String name) {
 		dsl.writeInXpath("//input[@placeholder='Nome']", name);
@@ -103,16 +94,8 @@ public class FlowNotLoggedPage extends BasePage {
 		return dsl.giveTextForXpath("//font[@class='error-handler']");
 	}
 	
-	public String getTokenError() {
-		return dsl.giveTextForXpath("//font[@class='error-handler']");
-	}
-	
-	public String getError() {
-		return dsl.giveTextForXpath("//*[@id='hideMe']");
-	}
-	
-	public void clearImputs() {
-		dsl.clearTexts("//input");
+	public void clearInputs(int width) {
+		dsl.clearTexts("//input", width);
 	}
 	// --Validate InexistentUser TokenPage -------
 	public void writeToken(String token) {
@@ -152,7 +135,8 @@ public class FlowNotLoggedPage extends BasePage {
 
 	// --Confirm Information Page ----------
 	public void writeConfirmUser(String name) {
-		dsl.writeInXpath("//input[@placeholder='Usuário']", name);
+		//dsl.writeInXpath("//input[@placeholder='Usuário']", name);
+		dsl.writeInXpath("//input[@placeholder='usuário']", name);
 	}
 	
 	//-- NewPassWordPage --------------
@@ -163,5 +147,4 @@ public class FlowNotLoggedPage extends BasePage {
 	public void writeConfirmPassWorld(String passWord) {
 		dsl.writeInXpath("//input[@placeholder='Password confirm']", passWord);
 	}
-
 }

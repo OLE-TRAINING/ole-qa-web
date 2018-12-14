@@ -149,13 +149,10 @@ public class HomePage extends BasePage {
 	}
 
 	public boolean existErrorInFilmCards() {
-		
-		
 		dsl.expectLoaderDisappear();
 		int index = 1;
 		boolean flag = false;
 		
-
 		// make scrools
 		for (int scroll = 1, countFilm = 0; scroll <= scrolls;) {
 			countFilm = countFilms();
@@ -165,8 +162,6 @@ public class HomePage extends BasePage {
 			}
 		}
 		
-		
-		
 		// make log of wrong elements
 		String xpath="//div[@class='card-component']/div[@class='card-content']";
 		Boolean hasImage = false;
@@ -174,12 +169,10 @@ public class HomePage extends BasePage {
 
 		for (@SuppressWarnings("unused") WebElement walks : cardImgInfos) {
 			
-		
 			// exclude "px" of string
 			cssFloatValue = dsl.getCssValue(xpath, index);
 			try {
 				hasImage = dsl.hasImage(xpath, index);
-	
 			} catch (NoSuchElementException exception) {
 				//the element no has tag p
 			}
@@ -192,9 +185,8 @@ public class HomePage extends BasePage {
 				System.out.println("Movie locator:" + xpath+"["+index+"]");
 				System.out.println("/-------------------------------------------------------------------------------/");
 				flag = true;
-		
 			}
-			if(hasImage)
+			hasImage=false;
 			index++;
 		}
 		return flag;

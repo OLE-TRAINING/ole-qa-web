@@ -75,11 +75,12 @@ public class DSL {
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
 	
-	public void clearTexts(String xpath) {
+	public void clearTexts(String xpath, int width) {
 		List<WebElement> findElements = getDriver().findElements(By.xpath(xpath));
 		for(WebElement element:findElements) {
-			System.out.println("clear element: "+element.toString());
-			element.sendKeys(Keys.BACK_SPACE);
+			for(int n=0;n < width; n++) {
+				element.sendKeys(Keys.BACK_SPACE);
+			}
 		}	
 	}
 	
@@ -154,9 +155,18 @@ public class DSL {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		wait1.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(xpath))));
 	}
+	
 	public void waitInMiliSeconds(int n) {
 		WebDriver driver = getDriver();
 		driver.manage().timeouts().implicitlyWait(n, TimeUnit.MILLISECONDS);
+	}
+	
+	public void expectForTextInXpath(String xpath, String text) {
+		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
+		WebElement element;
+		
+		element = getDriver().findElement(By.xpath(xpath));
+		wait1.until(ExpectedConditions.textToBePresentInElement(element, text));
 	}
 	
 	public void sleep(int n) {
@@ -168,5 +178,15 @@ public class DSL {
 		}
 	}
 	
+	public void refreshElement(WebElement element ){
+	    String sElement = element.toString().split("-> ")[1];
+	    String locatorType = sElement.split(": ")[0];
+	    if (locatorType.matches("css selector")) locatorType = "css";
+	    String loc0 = sElement.split(": ")[1];
+	    String theLocator = loc0.substring(0,loc0.length()-1);
+	    System.out.println("Refreshing element with "+locatorType+": "+theLocator);
+
+	    //return getDriver().getElement(theLocator,locatorType);
+	}
 
 }
