@@ -144,122 +144,104 @@ public class FlowTestNotLogged extends BaseTest {
 		
 		pendingUserPage.writeToken(user.getToken());
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		page.next();
+		utils.next();
 
-		page.waitStandbyLoader();
+		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
+		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
 
-		page.expectForEspecificTextOfPage("INFORME SUA SENHA");
-		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
+		Assert.assertEquals(user.getEmail(), loginPage.getEmailInPage());
 
-		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
+		loginPage.writePasswordLogin(user.getPassWord());
+		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
 
-		page.writePasswordLogin(user.getPassWord());
-		Assert.assertEquals(user.getPassWord(), page.getPasswordWrittenLogin());
-
-		page.next();
+		utils.next();
 
 		// --lost PassWord test
-		page.backInitialScrean();
+		utils.backInitialScrean();
 
-		page.openTest();
-		Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
+		utils.openTest();
+		Assert.assertEquals("INFORME SEU E-MAIL", preloginPage.especificTextOfPage());
 
-		page.writeEmail(user.getEmail());
-		Assert.assertEquals(user.getEmail(), page.textWritten());
+		preloginPage.writeEmail(user.getEmail());
+		Assert.assertEquals(user.getEmail(), preloginPage.textWritten());
 
-		page.next();
+		utils.next();
 
 		Assert.assertEquals(
 				"IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
-				page.especificTextOfPage());
+				pendingUserPage.especificTextOfPage());
 
-		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
+		Assert.assertEquals(user.getEmail(), pendingUserPage.getEmailInPage());
 		
-		page.writeToken(user.getToken());
+		pendingUserPage.writeToken(user.getToken());
 
-		page.next();
-		page.waitStandbyLoader();
+		utils.next();
 
-		page.expectForEspecificTextOfPage("INFORME SUA SENHA");
-		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
+		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
+		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
 
-		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
+		Assert.assertEquals(user.getEmail(), loginPage.getEmailInPage());
 
-		page.writePasswordLogin(user.getPassWord());
-		Assert.assertEquals(user.getPassWord(), page.getPasswordWrittenLogin());
+		loginPage.writePasswordLogin(user.getPassWord());
+		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
 
-		page.clickEsqueceuSenha();
+		loginPage.clickEsqueceuSenha();
 
 		Assert.assertEquals("CONFIRME AS INFORMAÇÕES DE SUA CONTA", page.especificTextOfPage());
-		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
+		Assert.assertEquals(user.getEmail(), confirmationPage.getEmailInPage());
 		
-		page.writeConfirmUser("oOoOoOoOoOoO");
-		page.next();
-		Assert.assertEquals(userInesistentError, page.getError());
-		page.clearInputs(13);
-		page.writeConfirmUser("!+-@#$%5®6®®££777&*9-()()()(AD)(()");
-		page.next();
-		Assert.assertEquals(userComfirmationError, page.getError());
-		page.clearInputs("!+-@#$%5®6®®££777&*9-()()()(AD)(()".length()+1);
+		confirmationPage.writeConfirmUser("oOoOoOoOoOoO");
+		utils.next();
+		Assert.assertEquals(userInesistentError, confirmationPage.getError());
 		
-		page.writeConfirmUser(user.getUser());
+		utils.clearInputs(13);
+		confirmationPage.writeConfirmUser("!+-@#$%5®6®®££777&*9-()()()(AD)(()");
+		utils.next();
+		Assert.assertEquals(userComfirmationError, confirmationPage.getError());
+		utils.clearInputs("!+-@#$%5®6®®££777&*9-()()()(AD)(()".length()+1);
+		
+		confirmationPage.writeConfirmUser(user.getUser());
 
-		page.next();
+		utils.next();
 
 		Assert.assertEquals("INFORME SUA NOVA SENHA", page.especificTextOfPage());
 		
 		//--error token test
-		page.writeToken("error");
-		page.writeNewPassWorld(user.getPassWord());
-		page.writeConfirmPassWorld(user.getPassWord());
-		page.next();
-		Assert.assertEquals(tokenIncorrectError, page.getTokenError());
-		page.clearInputs(user.getPassWord().length()+1);
-		page.writeToken("error0");
-		page.writeNewPassWorld(user.getPassWord());
-		page.writeConfirmPassWorld(user.getPassWord());	
-		page.next();
-		Assert.assertEquals(tokenError,  page.getError());
-		page.clearInputs(user.getPassWord().length()+1);
+		newPassWordPage.writeToken("error");
+		newPassWordPage.writeNewPassWorld(user.getPassWord());
+		newPassWordPage.writeConfirmPassWorld(user.getPassWord());
+		utils.next();
+		
+		Assert.assertEquals(tokenIncorrectError, newPassWordPage.getError());
+		utils.clearInputs(user.getPassWord().length()+1);
+		newPassWordPage.writeToken("error0");
+		newPassWordPage.writeNewPassWorld(user.getPassWord());
+		newPassWordPage.writeConfirmPassWorld(user.getPassWord());	
+		utils.next();
+		Assert.assertEquals(tokenError,  newPassWordPage.getError());
+		utils.clearInputs(user.getPassWord().length()+1);
 		
 		//-- error password test
-		page.writeToken("error");
-		page.writeNewPassWorld("@@@@@@");
-		page.writeConfirmPassWorld("@@@@@@");
-		page.next();
-		Assert.assertEquals(passWordConfirmationError, page.getError());
-		page.clearInputs(6);
+		newPassWordPage.writeToken("error");
+		newPassWordPage.writeNewPassWorld("@@@@@@");
+		newPassWordPage.writeConfirmPassWorld("@@@@@@");
+		utils.next();
+		Assert.assertEquals(passWordConfirmationError, newPassWordPage.getError());
+		utils.clearInputs(6);
 		
-		page.writeToken(user.getToken());
-		page.writeNewPassWorld(user.getPassWord());
-		page.writeConfirmPassWorld(user.getPassWord());
+		newPassWordPage.writeToken(user.getToken());
+		newPassWordPage.writeNewPassWorld(user.getPassWord());
+		newPassWordPage.writeConfirmPassWorld(user.getPassWord());
 
-		page.next();
+		utils.next();
 
-		page.waitStandbyLoader();
+		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
+		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
+		Assert.assertEquals(user.getEmail(), loginPage.getEmailInPage());
 
-		page.expectForEspecificTextOfPage("INFORME SUA SENHA");
-		Assert.assertEquals("INFORME SUA SENHA", page.especificTextOfPage());
-		Assert.assertEquals(user.getEmail(), page.getEmailInPage());
+		loginPage.writePasswordLogin(user.getPassWord());
+		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
 
-		page.writePasswordLogin(user.getPassWord());
-		Assert.assertEquals(user.getPassWord(), page.getPasswordWrittenLogin());
-
-		page.next();
+		utils.next();
 	}	
 }

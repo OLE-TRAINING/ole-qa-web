@@ -16,10 +16,9 @@ public class LoginPage extends BasePage {
 	}
 	
 	public void expectForEspecificTextOfPage(String text) {
-		dsl.waitInMiliSeconds(5000);
-		System.out.println(dsl.giveTextForXpath("//div/p[1]"));
-		dsl.expectForTextInXpath("//div/p[1]", text);
-		dsl.waitInMiliSeconds(0);
+		
+		dsl.expectForTextInXpath("//p[contains(.,'INFORME SUA SENHA')]", text);
+		
 	}
 	
 	public String getError() {

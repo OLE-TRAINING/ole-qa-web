@@ -3,9 +3,12 @@ package pages;
 import core.BasePage;
 
 public class ConfirmInformationPage extends BasePage {
-	public void backInitialScrean() {
-		dsl.clickInXpath("//div[@class='profile-settings-menu']/i");
-		dsl.clickInXpath("//div[@class='profile-settings-menu']/i/following-sibling::div//span[contains(text(), 'Sair')]");
-		dsl.clickInXpath("//button[@class='btn-stay']");
+	public void writeConfirmUser(String name) {
+		//dsl.writeInXpath("//input[@placeholder='Usuário']", name);
+		dsl.writeInXpath("//input[@placeholder='usuário']", name);
+	}
+	
+	public String getError() {
+		return dsl.giveTextForXpath("//font[@class='error-handler']");
 	}
 }

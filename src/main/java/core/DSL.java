@@ -44,6 +44,7 @@ public class DSL {
 	}
 
 	public void clickInXpath(String xpath) {
+		expectLoaderDisappear();
 		WebElement findElement = giveElementXpath(xpath, "Clickable");
 		findElement.click();
 		expectLoaderDisappear();
@@ -118,8 +119,6 @@ public class DSL {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		WebElement element1;
 
-		expectLoaderDisappear();
-
 		if (waitType.equals("Clickable")) {
 			element1 = wait1.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
 		} else if (waitType.equals("Visible")) {
@@ -165,7 +164,8 @@ public class DSL {
 		WebDriverWait wait1 = new WebDriverWait(getDriver(), 30);
 		WebElement element;
 		
-		element = getDriver().findElement(By.xpath(xpath));
+		element = giveElementXpath(xpath,"Visible");
+		System.out.println(element.getText());
 		wait1.until(ExpectedConditions.textToBePresentInElement(element, text));
 	}
 	
