@@ -2,7 +2,7 @@
 The project currently accepts two browsers, but in the future it will accept more
 
 
-Follow these steps to execute the project:
+Follow these steps to execute the project:  
 1. change text file encoding to "UTF-8" in your eclipse  
 
 2.put your browsers in that versions  
