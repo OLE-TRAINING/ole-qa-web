@@ -8,19 +8,19 @@ public class NewUserPage extends BasePage {
 	}
 
 	public void writeCompleteName(String name) {
-		dsl.writeInXpath("//input[@placeholder='Nome']", name);
+		dsl.writeInXpath("//input[@placeholder=' Nome completo ']", name);
 	}
 
 	public String getNameWritten() {
-		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Nome']", "value");
+		return dsl.giveTextForAtributeInXpath("//input[@placeholder=' Nome completo ']", "value");
 	}
 
 	public void writeUser(String name) {
-		dsl.writeInXpath("//input[@placeholder='Usuário']", name);
+		dsl.writeInXpath("//input[@placeholder=' Nome de usuário ']", name);
 	}
 
 	public String getUserWritten() {
-		return dsl.giveTextForAtributeInXpath("//input[@placeholder='Usuário']", "value");
+		return dsl.giveTextForAtributeInXpath("//input[@placeholder=' Nome de usuário ']", "value");
 	}
 
 	public void writePassword(String name) {

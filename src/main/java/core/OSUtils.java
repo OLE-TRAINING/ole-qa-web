@@ -1,10 +1,8 @@
 package core;
 
-public class OSUtils
-{
+public class OSUtils {
    private String OS = null;
-   public String getOsName()
-   {
+   public String getOsName() {
       if(OS == null) { OS = System.getProperty("os.name"); }
       return OS;
    }

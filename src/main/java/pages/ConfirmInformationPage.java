@@ -4,8 +4,7 @@ import core.BasePage;
 
 public class ConfirmInformationPage extends BasePage {
 	public void writeConfirmUser(String name) {
-		//dsl.writeInXpath("//input[@placeholder='Usuário']", name);
-		dsl.writeInXpath("//input[@placeholder='usuário']", name);
+		dsl.writeInXpath("//input[@placeholder='Nome de Usuário']", name);
 	}
 	
 	public String getError() {

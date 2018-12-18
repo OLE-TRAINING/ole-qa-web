@@ -11,9 +11,7 @@ import tests.HomeTest;
 @SuiteClasses({
 	FlowTestNotLogged.class,
 	HomeTest.class,
-	FlowTestNotLogged.class,
-	HomeTest.class,
 	})
 
-public class SuitFlowTests {
+public class SuitTest {
 }

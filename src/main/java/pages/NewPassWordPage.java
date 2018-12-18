@@ -8,11 +8,11 @@ public class NewPassWordPage extends BasePage {
 	}
 	
 	public void writeNewPassWorld(String passWord) {
-		dsl.writeInXpath("//input[@placeholder='New password']", passWord);
+		dsl.writeInXpath("//input[@placeholder='Nova senha']", passWord);
 	}
 	
 	public void writeConfirmPassWorld(String passWord) {
-		dsl.writeInXpath("//input[@placeholder='Password confirm']", passWord);
+		dsl.writeInXpath("//input[@placeholder='Conﬁrme sua senha']", passWord);
 	}
 	
 	public String getError() {

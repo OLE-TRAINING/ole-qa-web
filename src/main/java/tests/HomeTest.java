@@ -4,20 +4,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.BaseTest;
-import net.bytebuddy.utility.visitor.ExceptionTableSensitiveMethodVisitor;
 import pages.HomePage;
 
 public class HomeTest extends BaseTest {
 	private HomePage page = new HomePage();
 	private String email = "bruno@ferraresi.com";
 	private String passWord= "23232323a";
-	private String token = "s4c3ss";
-	private String userName= "brunofe";
 	public int flux = 1;
 
 	@Test
 	public void refreshingTest() {
 		// --not registred test------------------
+		System.out.println("initing test...");
+		logInformation("init", "homePage");
 		if (flux == 0) {
 			page.openTest();
 			Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
@@ -79,7 +78,6 @@ public class HomeTest extends BaseTest {
 				page.switchTo(i);
 				page.waitMlSeconds(0);
 			}
-
 		} else if (flux == 1) {
 			page.openTest();
 			Assert.assertEquals("INFORME SEU E-MAIL", page.especificTextOfPage());
@@ -111,7 +109,7 @@ public class HomeTest extends BaseTest {
 				page.waitMlSeconds(0);
 			}
 			*/
-		}
-
+		}	
+		logInformation("tested", "homePage");
 	}
 }

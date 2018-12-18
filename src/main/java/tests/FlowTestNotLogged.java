@@ -4,7 +4,6 @@ import org.junit.Test;
 import core.BaseTest;
 import core.PagesUtils;
 import pages.ConfirmInformationPage;
-import pages.FlowNotLoggedPage;
 import pages.LoginPage;
 import pages.NewPassWordPage;
 import pages.NewUserPage;
@@ -14,7 +13,6 @@ import pages.ValidateInexistentUserTokenPage;
 
 public class FlowTestNotLogged extends BaseTest {
 	private PagesUtils utils = new PagesUtils();
-	private FlowNotLoggedPage page = new FlowNotLoggedPage();
 	private PreloginPage preloginPage = new PreloginPage();
 	private NewUserPage newUserPage = new NewUserPage();
 	private ValidateInexistentUserTokenPage validateInexistentUserPage = new ValidateInexistentUserTokenPage();
@@ -22,34 +20,32 @@ public class FlowTestNotLogged extends BaseTest {
 	private ConfirmInformationPage confirmationPage = new ConfirmInformationPage();
 	private NewPassWordPage newPassWordPage = new NewPassWordPage();
 	private LoginPage loginPage = new LoginPage();
-	
-	
-	
-	
-	private String nameError=				  "Obrigatório apenas letras e no máximo 50 caracteres.";
-	                                           
+	private String nameError=				  "Obrigatório apenas letras e no máximo 50 caracteres.";	                                           
 	private String userError= 				  "Obrigatório conter letras e/ou números, no máximo 15 caracteres.";
-	
 	private String userComfirmationError= 	  "Nome de usuário pode conter no máximo 15 caracteres e apenas letras e números";
 	private String userInesistentError =	  "Nome de usuário inexistente";
 	private String passWordError= 			  "Obrigatório conter letras e números, entre 6 e 10 caracteres.";
-
 	private String passWordloginPageError =   "Senha incorreta";
 	private String passWordConfirmationError = "Senha deve conter entre 6 e 10 caracteres e apenas letras e números";
 	private String emailError = 			  "Não foi possível realizar o cadastro com este email";
 	private String tokenError =            	  "Token de validação incorreto";
 	private String tokenIncorrectError =      "Token inválido";
 	
-	
 	@Test
 	public void flowTestNotLogged() {
 		// --not registred test------------------
 		//-- wrong email/verify error messages text
+		System.out.println("initing test...");
 		utils.openTest();
+		
+		logInformation("init", "preloginPage");
 		Assert.assertEquals("INFORME SEU E-MAIL", preloginPage.especificTextOfPage());
 		preloginPage.writeEmail("wrong@-email.com");
+		logInformation("tested", "preloginPage");
+		
 		utils.next();
 		
+		logInformation("init", "newUserPage");
 		Assert.assertEquals("wrong@-email.com", newUserPage.getEmailInPage());
 		newUserPage.writeCompleteName("!");
 		newUserPage.writeUser("!");
@@ -66,13 +62,18 @@ public class FlowTestNotLogged extends BaseTest {
 		utils.next();
 		
 		Assert.assertEquals(emailError, newUserPage.getEmailErrorMsg());
+		logInformation("tested", "newUserPage");
+		
 		utils.openTest();
 		
+		logInformation("init", "preloginPage");
 		preloginPage.writeEmail(user.getEmail());
 		Assert.assertEquals(user.getEmail(), preloginPage.textWritten());
-
+		logInformation("tested", "preloginPage");
+		
 		utils.next();
-
+		
+		logInformation("init", "newUserPage");
 		Assert.assertEquals("CRIE SUA NOVA CONTA", newUserPage.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), newUserPage.getEmailInPage());
 
@@ -84,10 +85,12 @@ public class FlowTestNotLogged extends BaseTest {
 
 		newUserPage.writePassword(user.getPassWord());
 		Assert.assertEquals(newUserPage.getPasswordWritten(), user.getPassWord());
+		logInformation("tested", "newUserPage");
 		
 		//-- verify wrong token and texts.
 		utils.next();
-
+		
+		logInformation("init", "validateInexistentUserPage");
 		Assert.assertEquals("PARA SUA SEGURANÇA, INFORME O TOKEN ENVIADO PARA O SEU E-MAIL:", validateInexistentUserPage.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), validateInexistentUserPage.getEmailInPage());
 		
@@ -101,9 +104,11 @@ public class FlowTestNotLogged extends BaseTest {
 		utils.clearInputs(6);
 		
 		validateInexistentUserPage.writeToken(user.getToken());
-
+		logInformation("tested", "validateInexistentUserPage");
+		
 		utils.next();
 		
+		logInformation("init", "loginPage");
 		//-- verify wrong text Login page
 		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
 		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());	
@@ -116,19 +121,22 @@ public class FlowTestNotLogged extends BaseTest {
 		
 		loginPage.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
-
+		logInformation("tested", "loginPage");
 		utils.next();
 		
 		// -- pending test/ verify wrong text
-		utils.backInitialScrean();
 		
+		utils.backInitialScrean();
+		logInformation("init", "preloginPage");
 		Assert.assertEquals("INFORME SEU E-MAIL", preloginPage.especificTextOfPage());
 		
 		preloginPage.writeEmail(user.getEmail());
 		Assert.assertEquals(user.getEmail(), preloginPage.textWritten());
-
+		logInformation("tested", "preloginPage");
+		
 		utils.next();
-
+		
+		logInformation("init", "pendingUserPage");
 		Assert.assertEquals("IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
 				pendingUserPage.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), pendingUserPage.getEmailInPage());
@@ -143,9 +151,11 @@ public class FlowTestNotLogged extends BaseTest {
 		utils.clearInputs(6);
 		
 		pendingUserPage.writeToken(user.getToken());
-
+		logInformation("tested", "pendingUserPage");
+		
 		utils.next();
-
+		
+		logInformation("init", "loginPage");
 		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
 		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
 
@@ -153,20 +163,23 @@ public class FlowTestNotLogged extends BaseTest {
 
 		loginPage.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
-
+		logInformation("tested", "loginPage");
+		
 		utils.next();
 
 		// --lost PassWord test
 		utils.backInitialScrean();
-
+		
 		utils.openTest();
+		logInformation("init", "preloginPage");
 		Assert.assertEquals("INFORME SEU E-MAIL", preloginPage.especificTextOfPage());
 
 		preloginPage.writeEmail(user.getEmail());
 		Assert.assertEquals(user.getEmail(), preloginPage.textWritten());
-
+		logInformation("tested", "preloginPage");
 		utils.next();
 
+		logInformation("init", "pendingUserPage");
 		Assert.assertEquals(
 				"IDENTIFICAMOS QUE VOCÊ JÁ INICIOU UM CADASTRO, PARA CONCLUIRMOS, INFORME O TOKEN ENVIADO PARA SEU E-MAIL:",
 				pendingUserPage.especificTextOfPage());
@@ -174,9 +187,11 @@ public class FlowTestNotLogged extends BaseTest {
 		Assert.assertEquals(user.getEmail(), pendingUserPage.getEmailInPage());
 		
 		pendingUserPage.writeToken(user.getToken());
-
+		logInformation("tested", "pendingUserPage");
+		
 		utils.next();
-
+		
+		logInformation("init", "loginPage");
 		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
 		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
 
@@ -184,10 +199,12 @@ public class FlowTestNotLogged extends BaseTest {
 
 		loginPage.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
-
+		logInformation("tested", "loginPage");
+		
 		loginPage.clickEsqueceuSenha();
-
-		Assert.assertEquals("CONFIRME AS INFORMAÇÕES DE SUA CONTA", page.especificTextOfPage());
+		
+		logInformation("init", "confirmationPage");
+		Assert.assertEquals("CONFIRME AS INFORMAÇÕES DE SUA CONTA", confirmationPage.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), confirmationPage.getEmailInPage());
 		
 		confirmationPage.writeConfirmUser("oOoOoOoOoOoO");
@@ -201,10 +218,12 @@ public class FlowTestNotLogged extends BaseTest {
 		utils.clearInputs("!+-@#$%5®6®®££777&*9-()()()(AD)(()".length()+1);
 		
 		confirmationPage.writeConfirmUser(user.getUser());
-
+		logInformation("tested", "confirmationPage");
+		
 		utils.next();
-
-		Assert.assertEquals("INFORME SUA NOVA SENHA", page.especificTextOfPage());
+		
+		logInformation("init", "newPassWordPage");
+		Assert.assertEquals("INFORME O TOKEN ENVIADO PARA O SEU EMAIL E A SUA NOVA SENHA", newPassWordPage.especificTextOfPage());
 		
 		//--error token test
 		newPassWordPage.writeToken("error");
@@ -233,15 +252,18 @@ public class FlowTestNotLogged extends BaseTest {
 		newPassWordPage.writeNewPassWorld(user.getPassWord());
 		newPassWordPage.writeConfirmPassWorld(user.getPassWord());
 
+		logInformation("tested", "newPassWordPage");
 		utils.next();
-
+		
+		logInformation("init", "loginPage");
 		loginPage.expectForEspecificTextOfPage("INFORME SUA SENHA");
 		Assert.assertEquals("INFORME SUA SENHA", loginPage.especificTextOfPage());
 		Assert.assertEquals(user.getEmail(), loginPage.getEmailInPage());
 
 		loginPage.writePasswordLogin(user.getPassWord());
 		Assert.assertEquals(user.getPassWord(), loginPage.getPasswordWrittenLogin());
-
+		logInformation("tested", "loginPage");
 		utils.next();
-	}	
+		endOfTest = true;
+	}
 }

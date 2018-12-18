@@ -1,8 +1,7 @@
 package tests;
 
-import org.junit.Assert;
-import org.junit.Test;
 
+import org.junit.Test;
 import core.BaseTest;
 import pages.HomePage;
 
@@ -10,8 +9,6 @@ public class floodEmailTest extends BaseTest {
 	private HomePage page = new HomePage();
 	private String email = "bruno@ferraresi.com";
 	private String passWord = "23232323a";
-	private String token = "s4c3ss";
-	private String userName = "brunofe";
 	private String test = "floodEmail";
 
 	@Test

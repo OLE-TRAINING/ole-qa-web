@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static core.DriverFactory.killDriver;
 
 public class DSL {
-
 	/************** Page opening/close **********************/
 	public void opemInitPage() {
 		getDriver().get("https://ole-traning.firebaseapp.com");
@@ -165,7 +164,6 @@ public class DSL {
 		WebElement element;
 		
 		element = giveElementXpath(xpath,"Visible");
-		System.out.println(element.getText());
 		wait1.until(ExpectedConditions.textToBePresentInElement(element, text));
 	}
 	
@@ -177,16 +175,4 @@ public class DSL {
 			e.printStackTrace();
 		}
 	}
-	
-	public void refreshElement(WebElement element ){
-	    String sElement = element.toString().split("-> ")[1];
-	    String locatorType = sElement.split(": ")[0];
-	    if (locatorType.matches("css selector")) locatorType = "css";
-	    String loc0 = sElement.split(": ")[1];
-	    String theLocator = loc0.substring(0,loc0.length()-1);
-	    System.out.println("Refreshing element with "+locatorType+": "+theLocator);
-
-	    //return getDriver().getElement(theLocator,locatorType);
-	}
-
 }
