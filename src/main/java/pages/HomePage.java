@@ -153,9 +153,11 @@ public class HomePage extends BasePage {
 		boolean flag = false;
 		
 		// make scrools
+		System.out.println("Start scrols");
 		for (int scroll = 1, countFilm = 0; scroll <= scrolls;) {
 			countFilm = countFilms();
 			if (scroll * 20 == countFilm) {
+				System.out.println("Films listed:"+countFilm+", making scroll:"+scroll);
 				scroll++;
 				scrownDown();
 			}
@@ -165,11 +167,12 @@ public class HomePage extends BasePage {
 		String xpath="//div[@class='card-component']/div[@class='card-content']";
 		Boolean hasImage = false;
 		float cssFloatValue;
+		float diff=(float)24.532;
 
 		for (@SuppressWarnings("unused") WebElement walks : cardImgInfos) {
 			
 			// exclude "px" of string
-			cssFloatValue = dsl.getCssValue(xpath, index);
+			cssFloatValue = dsl.getCssValue(xpath, index) + diff;
 			try {
 				hasImage = dsl.hasImage(xpath, index);
 			} catch (NoSuchElementException exception) {
@@ -181,6 +184,7 @@ public class HomePage extends BasePage {
 			if (cssFloatValue <= 85 || hasImage) {
 				System.out.println("");
 				System.out.println("Image:"+!hasImage);
+				System.out.println("Css top element:"+cssFloatValue);
 				System.out.println("Movie locator:" + xpath+"["+index+"]");
 				System.out.println("/-------------------------------------------------------------------------------/");
 				flag = true;

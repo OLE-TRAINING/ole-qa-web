@@ -96,20 +96,20 @@ public class HomeTest extends BaseTest {
 
 			page.next();
 			
-			// find error cards
-			try {
-				Assert.assertFalse(page.existErrorInFilmCards());
-			} catch(AssertionError e) {
-				System.out.println("possible errors listed!");
-			}
-			/*
 			for (int i = 1; i <= 20; i++) {
 				page.waitMlSeconds(100);
 				page.switchTo(i);
 				page.waitMlSeconds(0);
 			}
-			*/
+			
+			// find error cards
+			try {
+				Assert.assertFalse(page.existErrorInFilmCards());
+			} catch(AssertionError e) {
+				System.out.println("possible errors listed on movie cards!");
+			}
 		}	
 		logInformation("tested", "homePage");
+		endOfTest = true;
 	}
 }
